@@ -1,0 +1,127 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+<div class="parent-div">
+<div class="card">
+  
+    <a href="{%url 'invoice_create'%}" class="btn btn-outline-primary btn-block mybuttons ">Create invoice</a>
+  
+   <br>
+  
+    <a href="{%url 'invoice_home'%}" class="btn btn-outline-info btn-block mybuttons ">Return home after search</a>
+   <br>
+   <p style="font-size: small;">To mark an invoice as cleared, update and change status to cleared</p>
+
+</div>
+</div>
+
+<hr>
+<div class="parent-div">
+<form action="{%url 'invoice_search'%}" method="get" style="display: inline-block;" class="ml-2">
+
+  <input type="text" name="q" placeholder="status/customer/due date" class="box">
+  <b><input type="submit" name="" value="search"></b>
+
+</form>
+</div>
+
+
+<hr>
+
+{%for invoice in object_list%}
+<div class="parent-div">
+
+    <div class="card">
+        <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+          <b style="float: left;">INVOICE</b>
+        
+          
+        </div>
+  
+      <li class="list-group-item"> <b style="float: left; color: #00539cff;">Invoice no </b> 
+      <a href="">
+        <b style="float: right; color:grey;">{{invoice.invoice_no}}</b></a></b></li>
+      
+      <li class="list-group-item"> <b style="float: left; color: #00539cff;">Customer name </b> 
+            <a href="">
+              <b style="float: right; color:grey;">{{invoice.customer_name}}</b></a></b></li>
+        
+     <li class="list-group-item"> <b style="float: left; color: #00539cff;">Amount due </b> 
+                <a href="">
+                  <b style="float: right; color:grey;">{{invoice.actual_due}}</b></a></b></li>      
+     
+      <li class="list-group-item"> <b style="float: left; color: #00539cff;">Status </b> 
+                    <a href="">
+            <b style="float: right; color:grey;">{{invoice.status}}</b></a></b></li>      
+       
+            
+      
+      <li class="list-group-item"> <b style="float: left; color: #00539cff;">Due date </b> 
+              <a href="">
+      <b style="float: right; color:grey;">{{invoice.due_date}}</b></a></b></li>      
+                
+      
+       <li class="list-group-item">
+        <a href="{%url 'invoice_detail' invoice.id%}" class="btn btn-primary btn-block mybuttons ">Download invoice</a>
+        </li>
+  
+          <li class="list-group-item">
+            <a href="{%url 'invoice_update' invoice.id%}" class="btn btn-outline-info btn-block mybuttons ">Update</a>
+          </li>
+         
+          <li class="list-group-item">
+            <a href="{%url 'invoice_delete' invoice.id%}" class="btn btn-outline-danger btn-block mybuttons ">Delete</a>
+          </li>
+  
+          
+      </div>
+  </div>
+  
+ <div class="parent-div">
+  {%if is_paginated%}
+
+    {%if page_obj.has_previous%}
+
+    <a href="?page=1" class="btn btn-outline-primary btn-sm badge-pill mb-4" style="font-size: small;">first </a>
+    <a href="?page={{page_obj.previous_page_number}}"
+        class="btn btn-outline-primary btn-sm badge-pill  mb-4" style="font-size: small;">previous</a>
+
+    {%endif%}
+
+    {%for num in page_obj.paginator.page_range%}
+
+    {%if page_obj.number == num%}
+
+    <a href="?page={{num}}" class="btn btn-outline-primary btn-sm badge-pill  mb-4" style="font-size: small;">{{num}}</a>
+    {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%} <a href="?page={{num}}"
+        class="btn btn-outline-primary btn-sm badge-pill mb-4" style="font-size: small;">{{num}}</a>
+
+        {%endif%}
+        {%endfor%}
+
+        {%if page_obj.has_next%}
+
+        <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-primary btn-sm badge-pill mb-4" style="font-size: small;">next</a>
+        <a href="?page={{page_obj.paginator.num_pages}}"
+            class="btn btn-outline-primary btn-sm badge-pill mb-4" style="font-size: small;">last</a>
+
+        {%endif%}
+
+        {%endif%}
+      </div>
+       
+      <br>
+  
+  {%endfor%}
+
+
+
+
+
+
+
+{%endblock%}

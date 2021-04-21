@@ -1,0 +1,78 @@
+{%extends 'index.html'%}
+
+
+{%block content%}
+<br>
+<br>
+<br>
+
+<br>
+<div class="parent-div">
+
+    <div class="card">
+        <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+          <b>ACCOUNTS BRANCH1</b>
+          
+        </div>
+      
+        <li class="list-group-item">
+          <a href="{%url 'transaction_home'%}" class="btn btn-outline-dark btn-block mybuttons ">
+            <b>Back home</b></a>
+        </li>
+
+
+        <li class="list-group-item">
+          <a href="{%url 'receipts'%}" class="btn btn-outline-dark btn-block mybuttons ">
+            <b>Click here to view receipts</b></a>
+        </li>
+
+      <li class="list-group-item">
+        <a href="{%url 'mysales'%}" class="btn btn-outline-dark btn-block mybuttons ">
+          <b>Click here to view sales</b></a>
+        </li>
+  
+          <li class="list-group-item">
+            <a href="{%url 'mypurchases'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view purchases</b></a>
+          </li>
+         
+          <li class="list-group-item">
+            <a href="{%url 'myexpenses'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view expenses</b></a>
+          </li>
+
+          
+          <li class="list-group-item">
+            <a href="{%url 'mydebtors'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view debtors</b></a>
+          </li>
+
+          
+          <li class="list-group-item">
+            <a href="{%url 'mycreditors'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view creditors</b></a>
+          </li>
+
+          
+          <li class="list-group-item">
+            <a href="{%url 'products'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view products</b></a>
+          </li>
+
+          
+          <li class="list-group-item">
+            <a href="{%url 'staffs'%}" class="btn btn-outline-dark btn-block mybuttons ">
+              <b>Click here to view staff</b></a>
+          </li>
+        
+        
+        
+      </div>
+  </div>
+
+<br>
+
+
+
+
+{%endblock%}

@@ -1,0 +1,73 @@
+{%extends 'index.html'%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+
+<br>
+<br>
+<br>
+<br>
+
+
+{%for transaction in transactions|slice:":1"%}
+
+<div class="parent-div">
+
+  <div class="card">
+      <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+        <b style="float: left;">CUMULATIVE  DAILY REPORTS BRANCH1</b>
+       
+        
+      </div>
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Sales today </b> 
+    <a href="{%url 'transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_daily_sales}}</b></a></b></li>
+    
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Purchases today</b> 
+    <a href="{%url 'transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_daily_purchases}}</b></a></b></li>
+  
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Expenses today </b> 
+    <a href="{%url 'transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_daily_expenses}}</b></a></b></li>
+    
+ 
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Credit sales today </b> 
+        <a href="{%url 'transaction_delete' transaction.id%}">
+          <b style="float: right; color:grey;">{{transaction.total_daily_credit_sales}}</b></a></b></li>
+  
+  
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Credit purchases today</b> 
+          <a href="{%url 'transaction_delete' transaction.id%}">
+            <b style="float: right; color:grey;">{{transaction.total_daily_credit_purchases}}</b></a></b></li>
+    
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Daily profit/loss</b> 
+      <a href="{%url 'transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.daily_profit}}</b></a></b></li>
+
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Date today</b> <b
+        style="float: right; color:grey;">{{transaction.the_date_today|date:'j b,y'}},{{transaction.the_day_today}}</b></li>
+
+     <li class="list-group-item">
+      <a href="{%url 'transaction_home'%}" class="btn btn-primary btn-block mybuttons ">Home</a>
+      </li>
+
+       
+    </div>
+</div>
+{%endfor%}
+
+
+
+<br>
+
+{%endblock%}
+
+
+
+
+
+
+

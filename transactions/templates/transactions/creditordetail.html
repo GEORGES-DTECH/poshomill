@@ -1,0 +1,66 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+<div class="parent-div" id="#">
+
+    <div class="card">
+        <div class="card-header" style="background-color: white; color: black;">
+          <b style="float: left; "></b>
+        
+          
+        </div>
+
+      <li class="list-group-item"> <b style="float: left; color: black; ">PRODUCTS PURCHASED BRANCH1</b> 
+      <a href="">
+        <b style="float: right; color:black;">
+        </b></a></b></li>
+
+
+  
+      <li class="list-group-item"> <b style="float: left; color: black; "></b> 
+      <a href="">
+        <b style="float: left; color:black;">{{transaction.products_purchased}}</b></a></b></li>
+      
+      
+        <li class="list-group-item"> <b style="float: left; color: black; ">Staff</b> 
+          <a href="">
+            <b style="float: right; color:black;">{{transaction.staff}}</b></a></b></li>
+
+        
+            
+     
+       
+      </div>
+  </div>
+  <br>
+
+  <div class="parent-div">
+    <div class="card">
+      
+       
+      
+        <a href="{%url 'mycreditors'%}" class="btn btn-outline-dark btn-block mybuttons "><b>Back to creditors</b></a>
+
+   
+        
+        <a href="{%url 'transaction_home'%}" class="btn btn-outline-dark btn-block mybuttons "><b>Home</b></a>
+
+    
+    </div>
+    </div>
+    
+    
+
+
+
+{%endblock%}
