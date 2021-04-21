@@ -1,2 +1,1 @@
-# sacco
-a sacco managementy system for lending companies
+posh mill management system for a client
