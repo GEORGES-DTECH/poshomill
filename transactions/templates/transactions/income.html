@@ -28,26 +28,26 @@
         <li class="list-group-item"> <b style="float: left; color: #00539cff;"> Sales</b> <b
                 style="float: right; color:grey;">{{transaction.sales_in_income}}</b></li>
 
-        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Cost of sale</b> <b
-                style="float: right; color:grey;">{{transaction.total_purchases}}</b></li>
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Stock used</b> <b
+                style="float: right; color:grey;">({{transaction.cost_of_sales}})</b></li>
 
      <li class="list-group-item"> <b style="float: left; color: #00539cff;">Revenue</b> <b
                     style="float: right; color:grey;">{{transaction.revenue}}</b></li>
 
 
        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Expenses</b> <b
-                style="float: right; color:grey;">{{transaction.expenses}}</b></li>
+                style="float: right; color:grey;">({{transaction.expenses}})</b></li>
 
        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Net income</b> <b
                 style="float: right   ; color:grey;">{{transaction.myincome}}</b></li>
 
-        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Gorss profit margin</b> <b
-                    style="float: right   ; color:grey;">{{transaction.profit_margin}}%</b></li> 
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Gross profit margin</b> <b
+                    style="float: right   ; color:grey;">{{transaction.profit_margin}}</b></li> 
                     
         <li class="list-group-item"> <b style="float: left; color: grey">
                         Analysis:<br>
                         1.The higher the percentage the better.<br>
-                        2.For every 100sh spent by the customer {{transaction.profit_margin}} sh is the profit  used for expenses
+                        2.For every 100sh spent by the customer {{transaction.profit_margin}} 
                         
         </b> <b
         style="float: right   ; color:grey;"> 
@@ -68,7 +68,7 @@
 
         <button class="btn btn-outline-primary btn-block mybuttons" onclick="generateIncome()"><b>Download income statement in 5sec</b></button>
 
-        <a href="{%url 'reports_home'%}" class="btn btn-outline-primary btn-block mybuttons ">Monthly income breakdown</a>
+        <a href="{%url 'reports_home'%}" class="btn btn-outline-primary btn-block mybuttons "><b>Monthly income breakdown</b></a>
 
     <a href="{%url 'transaction_home'%}" class="btn btn-outline-primary btn-block mybuttons "><b>Home</b></a>
 

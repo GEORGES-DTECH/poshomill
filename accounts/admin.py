@@ -3,8 +3,8 @@ from django.contrib import admin
 from .models import Account
 
 class Accountadmin(UserAdmin):
-    list_display = ('has_paid','date_joined','phone','username','last_login','select_country')
-    search_fields = ('date_joined','phone','username','select_country')
+    list_display = ('is_active','date_joined','username','last_login','email')
+    search_fields = ('date_joined','username')
     readonly_fields = ('date_joined','last_login')
 
     filter_horizontal = ()

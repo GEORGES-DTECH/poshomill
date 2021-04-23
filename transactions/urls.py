@@ -6,10 +6,7 @@ from .views import (
     TransactionPurchaseUpdateView,
     TransactionDebtorView,
     TransactionCreditorView,
-    
     TransactionExpenseUpdateView,
-    
-  
     TransactionDeleteView,
     ReportHome,
     ReportUpdateView ,
@@ -18,9 +15,7 @@ from .views import (
     ReportCreateView,
     DailyReportsHomeView,
     ReceiptView,
-   
     IncomeHomeView,
-  
     CreateProduct,
     SaleView,
     SalesdetailView,
@@ -28,37 +23,22 @@ from .views import (
     ExpenseView,
     DebtorView,
     CreditorView,
-    CategoryHomeView,
-  
-    PerformanceView,
-    PaymentHomeView,
- 
+    
     ProductHomeView,
     AccountHomeView,
     UpdateProduct,
     ProductDelete,
-    StaffHomeView,
-    StaffDelete,
-    CreateStaff,
-    UpdateStaff,
     CreateProduct,
     ProductDelete,
     new_transaction,
     TransactionUpdateView,
     TransactionSearchResultView,
-
-    
-    InvoiceHomeView,
-    InvoiceCreateView,
-    InvoiceUpdateView,
-    InvoiceDeleteView,
-    InvoiceSearchResultView,
-    InvoicedetailView,
     HelpView,
     PurchasedetailView,
     DebtordetailView,
     CreditordetailView,
-    Branches
+    Branches,
+    StockView
 )
 
 
@@ -72,15 +52,6 @@ urlpatterns = [
      
      path('product/<int:pk>/delete/', ProductDelete.as_view(), name='product_delete'),
     
-
-     # ==========================staff ulrs=====================================
-   path('staffs/', StaffHomeView.as_view(), name='staffs'),
-    
-    path('staff/new/', CreateStaff.as_view(), name='staff_create'),
-   
-    path('staff/<int:pk>/update/', UpdateStaff.as_view(), name='staff_update'),
-     
-     path('staff/<int:pk>/delete/', StaffDelete.as_view(), name='staff_delete'),
     
 #     ========================revenues urls===================================
     
@@ -93,11 +64,8 @@ urlpatterns = [
     path('accounts/', AccountHomeView.as_view(),
          name='accounts'),
 
-    path('payments/', PaymentHomeView.as_view(),
-         name='payments'),    
-     
-    path('categories/', CategoryHomeView.as_view(),
-         name='category'),    
+   
+  
      
     path('help/', HelpView.as_view(),
          name='help'),    
@@ -105,6 +73,8 @@ urlpatterns = [
      path('branches/', Branches.as_view(),
          name='branches'),    
      
+      path('stock/', StockView.as_view(),
+         name='stock'), 
   
     
 #     ===================transactions urls==============================
@@ -141,6 +111,7 @@ urlpatterns = [
      path('creditpurchase/new/', views.new_creditor,
          name='creditor_create'),
      
+    
      
      
      
@@ -162,12 +133,6 @@ urlpatterns = [
      path('purchases/', PurchaseView.as_view(), name='mypurchases'),
      path('purchase/<int:pk>/', PurchasedetailView.as_view(), name='mypurchases_detail'),
 
-    
-    
-    path('performance/', PerformanceView.as_view(), name='performance'),
-    
-     
-   
     path('transaction/<int:pk>/delete/',
          TransactionDeleteView.as_view(), name='transaction_delete'),
 
@@ -192,29 +157,6 @@ urlpatterns = [
 
     path('receipt/receipts/search/',
          TransactionSearchResultView.as_view(), name='receipt_search'),
-     
-
-
-#  ===============invoices urls=========================
-  
-   path('invoices/', InvoiceHomeView.as_view(), name='invoice_home'),
-
-    path('invoice/new/', InvoiceCreateView.as_view(),
-         name='invoice_create'),
-
-
-    path('invoice/<int:pk>/update/',
-         InvoiceUpdateView.as_view(), name='invoice_update'),
-
-    path('invoice/<int:pk>/delete/',
-         InvoiceDeleteView.as_view(), name='invoice_delete'),
-
-     path('invoice/<int:pk>/',
-         InvoicedetailView.as_view(), name='invoice_detail'),    
-
-    path('invoices/invoice/search/',
-         InvoiceSearchResultView.as_view(), name='invoice_search'),      
-
-
+    
     
 ]

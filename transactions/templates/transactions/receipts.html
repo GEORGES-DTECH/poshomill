@@ -20,6 +20,7 @@
 
 
 {%for receipt in object_list%}
+{%if receipt.saleconfirmation%}
 <div class="parent-div">
 
     <div class="card">
@@ -37,23 +38,27 @@
 
 
   
-      <li class="list-group-item"> <b style="float: left; color: black; ">meal sold</b> 
+      <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
       <a href="">
-        <b style="float: right; color:black;">{{receipt.select_meal1}}</b></a></b></li>
+        <b style="float: right; color:black;">{{receipt.select_product1}}</b></a></b></li>
       
       
-        <li class="list-group-item"> <b style="float: left; color: black; ">meal sold</b> 
+        <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
           <a href="">
-            <b style="float: right; color:black;">{{receipt.select_meal2}}</b></a></b></li>
+            <b style="float: right; color:black;">{{receipt.select_product2}}</b></a></b></li>
     
-            <li class="list-group-item"> <b style="float: left; color: black; ">meal sold</b> 
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
               <a href="">
-                <b style="float: right; color:black;">{{receipt.select_meal3}}</b></a></b></li>
+                <b style="float: right; color:black;">{{receipt.select_product3}}</b></a></b></li>
           
-            <li class="list-group-item"> <b style="float: left; color: black; ">meal sold</b> 
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
                   <a href="">
-            <b style="float: right; color:black;">{{receipt.select_meal4}}</b></a></b></li>
+            <b style="float: right; color:black;">{{receipt.select_product4}}</b></a></b></li>
                   
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+              <a href="">
+           <b style="float: right; color:black;">{{receipt.select_product5}}</b></a></b></li>
+              
                   
       
 
@@ -76,7 +81,7 @@
       
       <li class="list-group-item"> <b style="float: left; color: black; ">Served by</b> 
                     <a href="">
-      <b style="float: right; color:black; ">{{receipt.staff}}</b></a></b></li>
+      <b style="float: right; color:black; ">{{user.username}}</b></a></b></li>
         
 
       <li class="list-group-item"> <b style="float: right; color: black; "></b> 
@@ -91,6 +96,7 @@
     </div>
     </div>
 <br>
+{%endif%}
 {%endfor%}
 <div class="parent-div">
   {%if is_paginated%}

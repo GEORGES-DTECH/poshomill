@@ -7,7 +7,7 @@
 <br>
 <br>
 <br>
-{%if user.has_paid%}
+{%if user.is_active%}
 <div class="parent-div">
 
   <div class="card">
@@ -33,13 +33,10 @@
 
       <li class="list-group-item">
         <a href="{%url 'product_create'%}" class="btn btn-outline-primary  btn-block mybuttons ">
-          <b>Click here to add your products</b></a>
+          <b>Click here to add your selling products</b></a>
       </li>
 
-      <li class="list-group-item">
-        <a href="{%url 'staff_create'%}" class="btn btn-outline-primary  btn-block mybuttons ">
-          <b>Click here to add your employees</b></a>
-      </li>
+     
 
 
 
@@ -81,12 +78,12 @@
           <a href="{%url 'transaction_delete' transaction.id%}">
             <b style="float: right; color:grey;">{{transaction.mpesa_balance}}</b></a></b></li>
 
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Stock used </b>
+              <a href="{%url 'transaction_delete' transaction.id%}">
+                <b style="float: right; color:grey;">{{transaction.cost_of_sales}}</b></a></b></li>
+    
 
-
-    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Branch  </b> <b
-        style="float: right; color:grey;">
-        {{transaction.staff.select_branch}}</b></li>
-
+  
 
      <li class="list-group-item">
       <a href="{%url 'accounts'%}" class="btn btn-outline-primary btn-block mybuttons ">

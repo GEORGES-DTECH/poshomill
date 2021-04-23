@@ -1,5 +1,5 @@
 from django import forms
-from .models import Transaction, Product,Employee
+from .models import Transaction, Product
 
 class TransactionForm(forms.ModelForm):
  
@@ -8,25 +8,23 @@ class TransactionForm(forms.ModelForm):
         model = Transaction
      
         fields = (
-        'select_meal1',
-        'select_meal2',
-        'select_meal3',
-        'select_meal4', 
+        'select_product1',
+        'select_product2',
+        'select_product3',
+        'select_product4',
+        'select_product5',  
         'total_selling_price',
         'customer_payment',
         'mode_of_sale',
-        'staff'
+        
     )
 
+    
     def __init__(self, employee, *args, **kwargs):
  
         super(TransactionForm, self).__init__(*args, **kwargs)
-        self.fields['select_meal1'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal2'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal3'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal4'].queryset = Product.objects.filter(employee=employee)
-        self.fields['staff'].queryset = Employee.objects.filter(employee=employee)
 
+  
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Transaction
@@ -34,53 +32,56 @@ class ExpenseForm(forms.ModelForm):
         fields = (
         'expense',
         'expense_description',
-        'staff',
+       
     )
 
+    
     def __init__(self, employee, *args, **kwargs):
+ 
         super(ExpenseForm, self).__init__(*args, **kwargs)
-      
-        self.fields['staff'].queryset = Employee.objects.filter(employee=employee)
 
+    
 class PurchaseForm(forms.ModelForm):
     class Meta:
         model = Transaction
      
         fields = (
         'products_purchased',
-        'purchase_price',
+        'quantity_purchased',
+        'price_per_each',
+        'quantity_used',
+         'units',
         'mode_of_purchase',
-        'staff', 
+        'suppliers_name',
     )
-
+    
+    
     def __init__(self, employee, *args, **kwargs):
+ 
         super(PurchaseForm, self).__init__(*args, **kwargs)
-      
-        self.fields['staff'].queryset = Employee.objects.filter(employee=employee)
+   
 
 class DebtorForm(forms.ModelForm):
     class Meta:
         model = Transaction
      
         fields = (
-        'select_meal1',
-        'select_meal2',
-        'select_meal3',
-        'select_meal4', 
+        'select_product1',
+        'select_product2',
+        'select_product3',
+        'select_product4',
+        'select_product5', 
         'credit_sale_price',
-        'credit_sale_customers_name',
+        'customers_name',
         'status',
-        'staff'
+        
     )
-
+    
     def __init__(self, employee, *args, **kwargs):
+ 
         super(DebtorForm, self).__init__(*args, **kwargs)
-        self.fields['select_meal1'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal2'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal3'].queryset = Product.objects.filter(employee=employee)
-        self.fields['select_meal4'].queryset = Product.objects.filter(employee=employee)
-        self.fields['staff'].queryset = Employee.objects.filter(employee=employee)
 
+    
 
 class CreditorForm(forms.ModelForm):
     class Meta:
@@ -89,13 +90,16 @@ class CreditorForm(forms.ModelForm):
         fields = (
         'products_purchased',
         'credit_purchase_price',
-        'credit_purchase_suppliers_name',
-        'status',
-        'staff', 
+        'quantity_purchased',
+        'quantity_used',
+         'units',
+         'status',
+        'suppliers_name',
+       
     )
-
+    
     def __init__(self, employee, *args, **kwargs):
+ 
         super(CreditorForm, self).__init__(*args, **kwargs)
-      
-        self.fields['staff'].queryset = Employee.objects.filter(employee=employee)
-               
+
+    

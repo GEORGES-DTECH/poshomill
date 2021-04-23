@@ -42,10 +42,7 @@
           <a href="{%url 'transaction_delete' transaction.id%}">
             <b style="float: right; color:grey;">{{transaction.total_daily_credit_purchases}}</b></a></b></li>
     
-    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Daily profit/loss</b> 
-      <a href="{%url 'transaction_delete' transaction.id%}">
-      <b style="float: right; color:grey;">{{transaction.daily_profit}}</b></a></b></li>
-
+  
 
     <li class="list-group-item"> <b style="float: left; color: #00539cff;">Date today</b> <b
         style="float: right; color:grey;">{{transaction.the_date_today|date:'j b,y'}},{{transaction.the_day_today}}</b></li>
