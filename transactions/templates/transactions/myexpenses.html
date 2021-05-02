@@ -33,6 +33,7 @@
             <th scope="col">Amount</th>
             
             <th scope="col">Description</th>
+            <th scope="col">Mode of payment</th>
          
             <th scope="col">Update</th>
           
@@ -47,10 +48,8 @@
                 <td><b>{{transaction.the_day}}</b></td>
                 <td><b>{{transaction.expense}}</b></td>
                 <td><b>{{transaction.expense_description}}</b></td>
-                
-              
-               
-                <td><a href="{%url 'expense_update' transaction.id%}"
+                <td><b>{{transaction.mode_of_payment}}</b></td>
+              <td><a href="{%url 'expense_update' transaction.id%}"
                         class="btn btn-primary badge-pill btn-sm mybuttons ">Update</a></td>
                
             </tr>

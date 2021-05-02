@@ -32,6 +32,7 @@ class ExpenseForm(forms.ModelForm):
         fields = (
         'expense',
         'expense_description',
+        'mode_of_payment'
        
     )
 
@@ -49,7 +50,7 @@ class PurchaseForm(forms.ModelForm):
         'products_purchased',
         'quantity_purchased',
         'price_per_each',
-        'quantity_used',
+       
          'units',
         'mode_of_purchase',
         'suppliers_name',
@@ -90,11 +91,11 @@ class CreditorForm(forms.ModelForm):
         fields = (
         'products_purchased',
         'credit_purchase_price',
-        'quantity_purchased',
-        'quantity_used',
-         'units',
-         'status',
+        'quantity',
+        'units',
+        'status',
         'suppliers_name',
+        'amount_paid',
        
     )
     

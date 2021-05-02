@@ -1,0 +1,115 @@
+{%extends 'index.html'%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+<div class="parent-div">
+    <div class="card">
+        <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+            <b>SELL ON CREDIT BRANCH2</b>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+                {%csrf_token%}
+                <fieldset class="form-group">
+
+
+
+                    {{form|crispy}}
+                </fieldset>
+                <div>
+                    <button class="btn btn-primary btn-block mybuttons " type="submit">Submit sale
+                        </button>
+
+
+
+                </div>
+            </form>
+
+            <hr>
+            <h4>Calculator</h4>
+           <div class="">
+
+
+                <table border="1" cellspacing="0" id="calculatortable">
+                <tr>
+                    <td colspan="4" id="inputLabel">0</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button onclick="pushBtn(this);" class="calculatorbutton">AC</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">/</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">7</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">8</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">9</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">*</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">4</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">5</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">6</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">-</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">1</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">2</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">3</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">+</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button onclick="pushBtn(this);" class="calculatorbutton">0</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">.</button></td>
+                    <td><button onclick="pushBtn(this);" class="calculatorbutton">=</button></td>
+                </tr>
+            </table>
+            </div>
+            <hr>
+            <a href="{%url '2transaction_home'%}" class="btn btn-outline-primary  btn-block mybuttons"><b>Cancel</b></a>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var inputLabel = document.getElementById('inputLabel');
+
+    function pushBtn(obj) {
+
+        var pushed = obj.innerHTML;
+
+        if (pushed == '=') {
+            // Calculate
+            inputLabel.innerHTML = eval(inputLabel.innerHTML);
+
+        } else if (pushed == 'AC') {
+            // All Clear
+            inputLabel.innerHTML = '0';
+
+        } else {
+            if (inputLabel.innerHTML == '0') {
+                inputLabel.innerHTML = pushed;
+
+            } else {
+                inputLabel.innerHTML += pushed;
+            }
+        }
+    }
+    </script>
+
+
+{%endblock content%}

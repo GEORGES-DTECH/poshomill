@@ -1,0 +1,136 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+<div class="parent-div">
+   
+        <form action="{%url '3receipt_search'%}" method="get" style="display: inline-block;" class="ml-2">
+        
+          <input type="text" name="q" placeholder="search by date" class="box">
+          <b><input type="submit" name="" value="search"></b>
+        
+        </form>
+    
+
+</div>
+<hr>
+
+
+{%for receipt in object_list%}
+{%if receipt.saleconfirmation%}
+<div class="parent-div">
+
+    <div class="card">
+        <div class="card-header" style="background-color: white; color: black;">
+          <b style="float: left; "></b>
+        
+          
+        </div>
+
+      <li class="list-group-item"> <b style="float: left; color: black; ">Receipt no: {{receipt.id}} branch3  
+        <a href="{%url '3receipts'%}" class="btn btn-outline-dark btn-sm mybuttons ml-2"><b>Return after search</b></a></b> 
+      <a href="">
+        <b style="float: right; color:black;">
+        </b></a></b></li>
+
+
+  
+      <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+      <a href="">
+        <b style="float: right; color:black;">{{receipt.select_product1}}</b></a></b></li>
+      
+      
+        <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+          <a href="">
+            <b style="float: right; color:black;">{{receipt.select_product2}}</b></a></b></li>
+    
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+              <a href="">
+                <b style="float: right; color:black;">{{receipt.select_product3}}</b></a></b></li>
+          
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+                  <a href="">
+            <b style="float: right; color:black;">{{receipt.select_product4}}</b></a></b></li>
+                  
+            <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b> 
+              <a href="">
+           <b style="float: right; color:black;">{{receipt.select_product5}}</b></a></b></li>
+              
+                  
+      
+
+        <li class="list-group-item"> <b style="float: left; color: black; "> To pay</b> 
+            <a href="">
+              <b style="float: right; color:black; ">{{receipt.total_selling_price}}</b></a></b></li>
+        
+      
+  
+
+    <li class="list-group-item"> <b style="float: left; color: black; ">Date</b> 
+                <a href="">
+                  <b style="float: right; color:black; ">{{receipt.transaction_date|date:'j b,y'}}</b></a></b></li>
+                  
+    <li class="list-group-item"> <b style="float: left; color: black; ">Mode of payment</b> 
+                    <a href="">
+                      <b style="float: right; color:black; ">{{receipt.mode_of_sale}}</b></a></b></li>
+                      
+                  
+      
+      <li class="list-group-item"> <b style="float: left; color: black; ">Served by</b> 
+                    <a href="">
+      <b style="float: right; color:black; ">{{transaction.employee}}</b></a></b></li>
+        
+
+      <li class="list-group-item"> <b style="float: right; color: black; "></b> 
+        <a href="">
+     <b style="float: left; color:black; ">
+    
+        <a href="{%url '3transaction_home'%}" class="btn btn-outline-info btn-sm mybuttons ml-2"><b>home</b></a>
+
+        <a href="{%url '3accounts'%}" class="btn btn-outline-primary btn-sm mybuttons ml-2"><b>back to accounts</b></a>
+        </b></a></b></li>
+
+    </div>
+    </div>
+<br>
+{%endif%}
+{%endfor%}
+<div class="parent-div">
+  {%if is_paginated%}
+
+  {%if page_obj.has_previous%}
+
+  <a href="?page=1" class="btn btn-outline-primary btn-small badge-pill mb-4">first </a>
+  <a href="?page={{page_obj.previous_page_number}}"
+      class="btn btn-outline-primary btn-small badge-pill  mb-4">previous</a>
+
+  {%endif%}
+
+  {%for num in page_obj.paginator.page_range%}
+
+  {%if page_obj.number == num%}
+
+  <a href="?page={{num}}" class="btn btn-outline-primary btn-small badge-pill  mb-4">{{num}}</a>
+  {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%} <a href="?page={{num}}"
+      class="btn btn-outline-primary btn-small badge-pill mb-4">{{num}}</a>
+
+      {%endif%}
+      {%endfor%}
+
+      {%if page_obj.has_next%}
+
+      <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-primary btn-small badge-pill mb-4">next</a>
+      <a href="?page={{page_obj.paginator.num_pages}}"
+          class="btn btn-outline-primary btn-small badge-pill mb-4">last</a>
+
+      {%endif%}
+
+      {%endif%}
+    </div>
+    
+{%endblock%}
+
+

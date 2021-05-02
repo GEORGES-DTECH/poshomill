@@ -1,0 +1,144 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<br>
+<br>
+<br>
+<br>
+
+<div class="parent-div">
+<div class="card" style="background-color: white;">
+
+  <h4>CUSTOMER PAID:{{transaction.customer_payment}}</h4>
+  <hr>
+  <h4>CUSTOMER CHANGE:{{transaction.change}}</h4>
+</div>
+
+
+</div>
+
+<br>
+
+
+
+<div class="parent-div" id="myreceipt">
+
+    <div class="card">
+        <div class="card-header" style="background-color: white; color: black;">
+          <b style="float: left; "></b>
+
+
+        </div>
+
+      <li class="list-group-item"> <b style="float: left; color: black; ">Receipt no: {{transaction.id}} branch4</b>
+      <a href="">
+        <b style="float: right; color:black;">
+        </b></a></b></li>
+
+
+
+      <li class="list-group-item"> <b style="float: left; color: black; "> product sold</b>
+      <a href="">
+        <b style="float: right; color:black;">{{transaction.select_product1}}</b></a></b></li>
+
+
+        <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b>
+          <a href="">
+            <b style="float: right; color:black;">{{transaction.select_product2}}</b></a></b></li>
+
+        <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b>
+          <a href="">
+            <b style="float: right; color:black;">{{transaction.select_product3}}</b></a></b></li>
+
+         <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b>
+          <a href="">
+            <b style="float: right; color:black;">{{transaction.select_product4}}</b></a></b></li>
+
+          
+          <li class="list-group-item"> <b style="float: left; color: black; ">product sold</b>
+              <a href="">
+                <b style="float: right; color:black;">{{transaction.select_product5}}</b></a></b></li>
+    
+    
+
+
+
+        <li class="list-group-item"> <b style="float: left; color: black; "> To pay</b>
+            <a href="">
+              <b style="float: right; color:black; ">{{transaction.total_selling_price}}</b></a></b></li>
+
+
+
+
+    <li class="list-group-item"> <b style="float: left; color: black; ">Date</b>
+                <a href="">
+                  <b style="float: right; color:black; ">{{transaction.transaction_date|date:'j b,y'}}</b></a></b></li>
+
+    <li class="list-group-item"> <b style="float: left; color: black; ">Mode of payment</b>
+                    <a href="">
+                      <b style="float: right; color:black; ">{{transaction.mode_of_sale}}</b></a></b></li>
+
+
+
+      <li class="list-group-item"> <b style="float: left; color: black; ">Served by</b>
+                    <a href="">
+      <b style="float: right; color:black; ">{{transaction.employee}}</b></a></b></li>
+
+
+      <li class="list-group-item"> <b style="float: right; color: black; "></b>
+        <a href="">
+     <b style="float: left; color:black; ">Welcome again to jogoo posho mill</b></a></b></li>
+
+
+
+      </div>
+  </div>
+  <br>
+
+  <div class="parent-div">
+    <div class="card">
+
+        <button class="btn btn-primary btn-large btn-block mybuttons" onclick="printJS('myreceipt', 'html')">
+        <b>Print receipt</b></button>
+
+
+
+        <a href="{%url '4transaction_create'%}" class="btn btn-outline-dark btn-block mybuttons "><b>Make another sale</b></a>
+
+        <a href="{%url '4mysales'%}" class="btn btn-outline-dark btn-block mybuttons "><b>Back to sales</b></a>
+
+        <a href="{%url '4transaction_home'%}" class="btn btn-outline-dark btn-block mybuttons "><b>Home</b></a>
+
+        <a href=""
+        class="btn btn-outline-success btn-block mybuttons "
+        id="whatsAppShareButton"
+       "whatsapp://send?t"
+        data-action="share/whatsapp/share"
+        target="_blank">
+        Share via whatsapp
+    </a>
+
+
+    </div>
+    </div>
+    <script type="text/javascript">
+
+document.getElementById("whatsAppShareButton").addEventListener('click', function(e) {
+  e.preventDefault();
+  var question = encodeURIComponent(document.getElementById("myreceipt").textContent);
+  window.open('whatsapp://send?text=' + question, '_blank');
+});
+
+
+
+
+    </script>
+
+
+
+
+
+
+{%endblock%}
+
+

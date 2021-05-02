@@ -38,7 +38,8 @@ from .views import (
     DebtordetailView,
     CreditordetailView,
     Branches,
-    StockView
+    StockView,
+    UpdateStock
 )
 
 
@@ -88,6 +89,9 @@ urlpatterns = [
      
      path('purchase/<int:pk>/update/',
          TransactionPurchaseUpdateView.as_view(), name='purchase_update'),
+
+       path('stock/<int:pk>/update/',
+         UpdateStock.as_view(), name='stock_update'),   
      
       
     path('purchase/new/', views.new_purchase,
@@ -111,11 +115,7 @@ urlpatterns = [
      path('creditpurchase/new/', views.new_creditor,
          name='creditor_create'),
      
-    
-     
-     
-     
-     path('', TransactionHomeView.as_view(), name='transaction_home'),
+    path('', TransactionHomeView.as_view(), name='transaction_home'),
      
      path('dailyreports/', DailyReportsHomeView.as_view(), name='dailyreport'),
      path('sales/', SaleView.as_view(), name='mysales'),

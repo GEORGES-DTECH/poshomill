@@ -1,0 +1,87 @@
+{%extends 'index.html'%}
+
+{%block content%}
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+<div class="parent-div" id="income">
+
+    <div class="card" style=" background-color: #0e4D92; color: #F5F5DC;">
+        <div class="card-header">
+
+            <b>INCOME STATEMENT BRANCH4.</b>
+
+
+        </div>
+
+
+        {%for transaction in object_list|slice:":1"%}
+
+
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;"> Sales</b> <b
+                style="float: right; color:grey;">{{transaction.sales_in_income}}</b></li>
+
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Stock used</b> <b
+                style="float: right; color:grey;">({{transaction.cost_of_sales}})</b></li>
+
+     <li class="list-group-item"> <b style="float: left; color: #00539cff;">Revenue</b> <b
+                    style="float: right; color:grey;">{{transaction.revenue}}</b></li>
+
+
+       <li class="list-group-item"> <b style="float: left; color: #00539cff;">Expenses</b> <b
+                style="float: right; color:grey;">({{transaction.expenses}})</b></li>
+
+       <li class="list-group-item"> <b style="float: left; color: #00539cff;">Net income</b> <b
+                style="float: right   ; color:grey;">{{transaction.myincome}}</b></li>
+
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Gross profit margin</b> <b
+                    style="float: right   ; color:grey;">{{transaction.profit_margin}}</b></li> 
+                    
+       
+
+       <li class="list-group-item"> <b style="float: left; color: #00539cff;">Income statement as at....</b> <b
+                    style="float: right; color:grey;">{{transaction.the_date_today|date:'j b,y'}},{{transaction.the_day_today}}</b></li>
+
+
+{%endfor%}
+    </div>
+</div>
+<br>
+<div class="parent-div">
+    <div class="card">
+
+
+        <button class="btn btn-outline-primary btn-block mybuttons" onclick="generateIncome()"><b>Download income statement in 5sec</b></button>
+
+        <a href="{%url '4reports_home'%}" class="btn btn-outline-primary btn-block mybuttons "><b>Monthly income breakdown</b></a>
+
+    <a href="{%url '4transaction_home'%}" class="btn btn-outline-primary btn-block mybuttons "><b>Home</b></a>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+
+    function generateIncome(){
+    const element = document.getElementById('income')
+    html2pdf()
+    .from(element)
+    .save()
+
+    }
+
+
+    </script>
+
+{%endblock%}
+

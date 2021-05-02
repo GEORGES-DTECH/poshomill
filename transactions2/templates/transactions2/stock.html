@@ -1,0 +1,122 @@
+{%extends 'index.html'%}
+
+{%block content%}
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+<a href="{%url '2mypurchases'%}" class="btn btn-info  mybuttons ml-2">Purchases</a>
+
+<a href="{%url '2accounts'%}" class="btn btn-primary  mybuttons ml-2">Back to accounts</a>
+
+
+<hr>
+
+<b style="color: black;">STOCK ANALYSIS BRANCH2</b>
+
+
+<div class="table-responsive ">
+    <table id="dataTable" class="table table-sm  table-light table-bordered  table-hover styleTable">
+
+
+
+        <thead class="table-light">
+            <tr>
+            
+            <th scope="col">Products|price</th>
+            <th scope="col">Quantity purchased</th>
+            <th scope="col">Quantity used</th>
+            <th scope="col">Quantity left</th>
+            <th scope="col">Total used</th>
+            <th scope="col">Total left</th>
+            <th scope="col">Update</th>
+        </tr>
+        </thead>
+         <tbody>
+            <tr>
+                {%for transaction in object_list%}
+                {%if transaction.purchaseconfirmation%}
+                <td><b> {{transaction.products_purchased}}|{{transaction.price_per_each}}sh</b></td>
+                <td><b> {{transaction.quantity_purchased}}{{transaction.units}}</b></td>
+                <td><b>{{transaction.quantity_used}}{{transaction.units}}</b></td>
+                <td><b>{{transaction.stock_quantity_left}}{{transaction.units}}</b></td>
+                <td><b>{{transaction.stock_value_used}}</b></td>
+                <td><b>{{transaction.value_left}}</b></td>
+                
+               <td><a href="{%url '2stock_update' transaction.id%}"
+                        class="btn btn-outline-primary badge-pill btn-sm mybuttons ">Update stock</a></td>
+        </tr>
+        </tbody>
+        {%endif%}
+            {%endfor%}
+
+    </table>
+
+        {%if is_paginated%}
+
+        {%if page_obj.has_previous%}
+
+        <a href="?page=1" class="btn btn-outline-primary btn-small badge-pill mb-4">first </a>
+        <a href="?page={{page_obj.previous_page_number}}"
+            class="btn btn-outline-primary btn-small badge-pill  mb-4">previous</a>
+
+        {%endif%}
+
+        {%for num in page_obj.paginator.page_range%}
+
+        {%if page_obj.number == num%}
+
+        <a href="?page={{num}}" class="btn btn-outline-primary btn-small badge-pill  mb-4">{{num}}</a>
+        {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%} <a href="?page={{num}}"
+            class="btn btn-outline-primary btn-small badge-pill mb-4">{{num}}</a>
+
+            {%endif%}
+            {%endfor%}
+
+            {%if page_obj.has_next%}
+
+            <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-primary btn-small badge-pill mb-4">next</a>
+            <a href="?page={{page_obj.paginator.num_pages}}"
+                class="btn btn-outline-primary btn-small badge-pill mb-4">last</a>
+
+            {%endif%}
+
+            {%endif%}
+
+
+
+
+</div>
+
+ 
+<hr>
+
+<div class="card" style="width: 21rem;">
+    <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+    STOCK ANALYSIS 
+    </div>
+    <div class="card-body">
+    {%for transaction in object_list|slice:":1"%}
+
+    <b>STOCK PURCHASED: {{transaction.stock_value_purchased}} ksh</b><br>
+    
+    <b>STOCK USED: {{transaction.cost_of_sales}} ksh</b><br>
+ 
+    <b>STOCK LEFT: {{transaction.stock_value_left}} ksh</b><br>
+    
+   
+ 
+    {%endfor%}
+    </div>
+ </div>
+ <hr>
+
+
+{%endblock%}

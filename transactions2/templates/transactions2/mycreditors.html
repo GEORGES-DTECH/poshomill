@@ -1,0 +1,119 @@
+{%extends 'index.html'%}
+
+{%block content%}
+
+<br>
+<br>
+<br>
+<br>
+
+<a href="{%url '2transaction_home'%}" class="btn btn-info  mybuttons ml-2">home</a>
+
+<a href="{%url '2accounts'%}" class="btn btn-primary  mybuttons ml-2">Back to accounts</a>
+
+
+<hr>
+
+<b style="color: black;">CREDITORS REPORT IN BRANCH2</b>
+
+<div class="table-responsive ">
+    <table id="dataTable" class="table table-sm  table-light table-bordered  table-hover styleTable">
+
+
+
+        <thead class="table-light">
+            <tr>
+            <th scope="col">Date|product</th>
+            <th scope="col">quantity</th>
+            <th scope="col">price</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Paid amount</th>
+            <th scope="col">Supplier</th>
+            <th scope="col">Update</th>
+            <th scope="col">More details</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                {%for transaction in object_list%}
+                {%if transaction.creditorconfirmation%}
+                <td><b>{{transaction.transaction_date|date:'j b,y'}}|{{transaction.products_purchased}}</b></td>
+                <td><b>{{transaction.quantity}}</b></td>
+                <td><b>{{transaction.credit_purchase_price}}</b></td>
+                <td><b>{{transaction.total_credit_purchase_price}}</b></td>
+                <td><b>{{transaction.amount_paid}}</b></td>
+                <td><b>{{transaction.suppliers_name}}</b></td>
+               
+                <td><a href="{%url '2creditor_update' transaction.id%}"
+                        class="btn btn-primary badge-pill btn-sm mybuttons ">Update</a></td>
+                <td><a href="{%url '2detail_mycreditors' transaction.id%}"
+                            class="btn btn-outline-primary badge-pill btn-sm mybuttons ">More details</a></td>        
+              
+            </tr>
+        </tbody>
+        {%endif%}
+        {%endfor%}
+
+    </table>
+
+    {%if is_paginated%}
+
+    {%if page_obj.has_previous%}
+
+    <a href="?page=1" class="btn btn-outline-primary btn-small badge-pill mb-4">first </a>
+    <a href="?page={{page_obj.previous_page_number}}"
+        class="btn btn-outline-primary btn-small badge-pill  mb-4">previous</a>
+
+    {%endif%}
+
+    {%for num in page_obj.paginator.page_range%}
+
+    {%if page_obj.number == num%}
+
+    <a href="?page={{num}}" class="btn btn-outline-primary btn-small badge-pill  mb-4">{{num}}</a>
+    {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%} <a href="?page={{num}}"
+        class="btn btn-outline-primary btn-small badge-pill mb-4">{{num}}</a>
+
+        {%endif%}
+        {%endfor%}
+
+        {%if page_obj.has_next%}
+
+        <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-primary btn-small badge-pill mb-4">next</a>
+        <a href="?page={{page_obj.paginator.num_pages}}"
+            class="btn btn-outline-primary btn-small badge-pill mb-4">last</a>
+
+        {%endif%}
+
+        {%endif%}
+
+
+
+
+</div>
+
+ 
+<hr>
+
+<div class="card" style="width: 21rem;">
+    <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+    BASIC INFORMATION 
+    </div>
+    <div class="card-body">
+    {%for transaction in object_list|slice:":1"%}
+   
+    <b style="font-size: larger;">You owe {{transaction.total_creditor_balance}} sh</b> <br>
+
+    <b>1.Continually update the paid amount,with updated figure for partial payments i.e if 1st installment is 1000sh and second is 1000 paid amount should read 2000</b> <br>
+    <b>2.Recognize the total paid amount in purchases when its cleared</b>
+   
+
+    
+    {%endfor%}
+    </div>
+</div>
+ <hr>
+
+
+{%endblock%}

@@ -49,6 +49,13 @@ class Transaction(models.Model):
         
     )
 
+    MODEEXPENSE= (
+        ('Cash', 'Cash'),
+        ('Mpesa', 'Mpesa'),
+        ('Bank', 'Bank'),
+        
+    )
+
     STATUS= (
         ('paid', 'paid'),
         ('unpaid', 'unpaid'),
@@ -79,10 +86,13 @@ class Transaction(models.Model):
     purchased_products=models.CharField(max_length=100,default="")
     price_per_each= models.IntegerField(default=0)
     quantity_purchased = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     quantity_used=models.IntegerField(default=0)
     mode_of_purchase=models.CharField(choices=MODEPURCHASE,max_length=100,default="cash")
+    mode_of_payment=models.CharField(choices=MODEEXPENSE,max_length=100,default="cash")
     units=models.CharField(choices=UNITS,max_length=100,default="bags")
     expense= models.IntegerField(default=0)
+    amount_paid= models.IntegerField(default=0)
     customer_payment= models.IntegerField(null=True,blank=True)
     expense_description = models.CharField(choices=DESCRIPTION,max_length=100,default="")
     credit_sale_price = models.IntegerField(default=0)
@@ -104,17 +114,8 @@ class Transaction(models.Model):
         return self.employee
 
     def get_absolute_url(self):
-        if self.price_per_each > 0:
-            return reverse('mypurchases')
-        if self.expense> 0:
-            return reverse('myexpenses')    
-
-        if self.credit_sale_price>0:
-            return reverse ('mydebtors')
-        if self.credit_purchase_price>0:
-            return reverse('mycreditors')  
-        else:
-            return reverse('sale_detail',kwargs={'pk':self.pk})
+       
+        return reverse('transaction_home')
        
    
     @cached_property
@@ -128,7 +129,12 @@ class Transaction(models.Model):
     @cached_property
     def total_purchases_price(self):
        total= self.quantity_purchased * self.price_per_each
-       return total  
+       return total
+
+    @cached_property
+    def total_credit_purchase_price(self):
+       total= self.quantity * self.credit_purchase_price
+       return total - self.amount_paid     
 
     @cached_property
     def stock_quantity_left(self):
@@ -172,15 +178,27 @@ class Transaction(models.Model):
         result= Transaction.objects.filter(status="unpaid")\
             .aggregate(total=Sum('credit_sale_price'))
         return result[ 'total']
+
     
     
     @cached_property
     def total_credit_purchases(self):
         result= Transaction.objects.filter(status="unpaid")\
-            .aggregate(total=Sum('credit_purchase_price'))
-        return result[ 'total']
-    
+            .aggregate(total=Sum(F('credit_purchase_price') * F('quantity')))['total']
+        return result
 
+    @cached_property
+    def total_paid_amount(self):
+      result= Transaction.objects.aggregate(total=Sum('amount_paid'))
+      return result[ 'total']
+       
+    @cached_property
+    def total_creditor_balance(self):
+        method1=self.total_credit_purchases
+        method2 = self.total_paid_amount
+        return method1 - method2
+     
+       
 
     @cached_property
     def total_purchases(self):
@@ -193,6 +211,18 @@ class Transaction(models.Model):
     def total_expense(self):
         result= Transaction.objects.aggregate(total=Sum('expense'))
         return result[ 'total']
+    
+    @cached_property
+    def total_mpesa_expense(self):
+        result= Transaction.objects.filter(mode_of_payment="Mpesa").aggregate(total=Sum('expense'))
+        return result[ 'total']
+
+      
+    @cached_property
+    def total_cash_expense(self):
+        result= Transaction.objects.filter(mode_of_payment="Cash").aggregate(total=Sum('expense'))
+        return result[ 'total']    
+    
     
     @cached_property
     def total_sales_amount(self):
@@ -315,18 +345,22 @@ class Transaction(models.Model):
     def mpesa_balance(self):
         method1=self.total_mpesa_sales_amount
         method2 = self.total_mpesa_purchase_amount
+        method3= self.total_mpesa_expense
+  
         if method1 is None:
             method1 = 0
         if method2 is None:
-            method2 = 0    
-        return method1 - method2
+            method2 = 0 
+        if method3 is None:
+            method3 = 0          
+        return method1 - (method2+method3)
     
     
     # ====================cash in hand determination===================
     @cached_property
     def total_cash_in_hand(self):
       
-        method3=self.total_expense
+        method3=self.total_cash_expense
         method2=self.total_cash_purchase_amount
         method1=self.total_cash_sales_amount
         if method1 is None:

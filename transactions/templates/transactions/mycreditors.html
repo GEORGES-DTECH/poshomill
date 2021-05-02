@@ -7,11 +7,6 @@
 <br>
 <br>
 
-
-
-
-
-
 <a href="{%url 'transaction_home'%}" class="btn btn-info  mybuttons ml-2">home</a>
 
 <a href="{%url 'accounts'%}" class="btn btn-primary  mybuttons ml-2">Back to accounts</a>
@@ -28,14 +23,14 @@
 
         <thead class="table-light">
             <tr>
-            <th scope="col">Date</th>
-            
-            <th scope="col">Amount</th>
-        
-            <th scope="col">Supplier details</th>
-            <th scope="col">Status</th>
+            <th scope="col">Date|product</th>
+            <th scope="col">quantity</th>
+            <th scope="col">price</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Paid amount</th>
+            <th scope="col">Supplier</th>
             <th scope="col">Update</th>
-            <th scope="col">Details</th>
+            <th scope="col">More details</th>
         </tr>
         </thead>
 
@@ -43,12 +38,12 @@
             <tr>
                 {%for transaction in object_list%}
                 {%if transaction.creditorconfirmation%}
-                <td><b>{{transaction.transaction_date|date:'j b,y'}}</b></td>
-             
+                <td><b>{{transaction.transaction_date|date:'j b,y'}}|{{transaction.products_purchased}}</b></td>
+                <td><b>{{transaction.quantity}}</b></td>
                 <td><b>{{transaction.credit_purchase_price}}</b></td>
-                
-                <td><b>{{transaction.credit_purchase_suppliers_name}}</b></td>
-                <td><b>{{transaction.status}}</b></td>
+                <td><b>{{transaction.total_credit_purchase_price}}</b></td>
+                <td><b>{{transaction.amount_paid}}</b></td>
+                <td><b>{{transaction.suppliers_name}}</b></td>
                
                 <td><a href="{%url 'creditor_update' transaction.id%}"
                         class="btn btn-primary badge-pill btn-sm mybuttons ">Update</a></td>
@@ -107,11 +102,13 @@
     </div>
     <div class="card-body">
     {%for transaction in object_list|slice:":1"%}
+   
+    <b style="font-size: larger;">You owe {{transaction.total_creditor_balance}} sh</b> <br>
 
-    <b style="font-size: larger;">You owe {{transaction.total_credit_purchases}} sh</b> <br>
+    <b>1.Continually update the paid amount,with updated figure for partial payments i.e if 1st installment is 1000sh and second is 1000 paid amount should read 2000</b> <br>
+    <b>2.Recognize the total paid amount in purchases when its cleared</b>
+   
 
-    <b>To clear amount you owe,click on update:</b> <br>
-    <b>Enter amount paid in purchase price ,change status to paid and submit:</b>
     
     {%endfor%}
     </div>

@@ -233,7 +233,7 @@ def new_purchase(request):
             transaction.employee = request.user
             transaction.save()
         
-            return redirect('transaction_home')
+            return redirect('mypurchases')
     else:
         form = PurchaseForm(request.user)
     return render(request, 'transactions/purchaseform.html', {'form': form})  
@@ -308,10 +308,27 @@ def new_transaction(request):
 
 # ==============================UPDATE VIEWS==============================================
 
-
-
-
-
+class UpdateStock(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+    model=Transaction
+    template_name = 'transactions/stockupdate.html'
+    fields=[
+        
+  'products_purchased',
+   'quantity_used',
+]
+    
+    def form_valid(self, form):
+        form.instance.employee= self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        product=self.get_object()
+        if self.request.user == product.employee:
+            return True
+        else:
+            return False
+ 
+    
 class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model=Product
     template_name = 'transactions/productcreate.html'
@@ -334,8 +351,6 @@ class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
             return False
  
     
-    
-
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Transactionreport
     template_name = 'transactions/create.html'
@@ -367,7 +382,6 @@ class TransactionPurchaseUpdateView(LoginRequiredMixin,  UpdateView):
         'products_purchased',
         'quantity_purchased',
         'price_per_each',
-        'quantity_used',
          'units',
         'mode_of_purchase',
         'suppliers_name',
@@ -392,6 +406,7 @@ class TransactionExpenseUpdateView(LoginRequiredMixin,  UpdateView):
     fields = (
         'expense',
         'expense_description',
+        'mode_of_payment'
         
     )
     
@@ -410,17 +425,17 @@ class TransactionExpenseUpdateView(LoginRequiredMixin,  UpdateView):
         
 
 
-class TransactionCreditorView(LoginRequiredMixin,  UpdateView):
+class TransactionCreditorView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Transaction
    
     template_name = 'transactions/creditorform.html'
     fields = (
          'products_purchased',
         'credit_purchase_price',
-        'quantity_purchased',
-        'quantity_used',
+         'quantity',
          'units',
          'status',
+         'amount_paid',
         'suppliers_name',
     )
     def form_valid(self, form):
@@ -431,9 +446,10 @@ class TransactionCreditorView(LoginRequiredMixin,  UpdateView):
         transaction=self.get_object()
         if self.request.user == transaction.employee:
             return True
+          
         else:
             return False    
-       
+        
 
 
 

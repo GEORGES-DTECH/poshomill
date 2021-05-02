@@ -1,0 +1,144 @@
+{%extends 'index.html'%}
+{%load crispy_forms_tags%}
+
+{%block content%}
+
+<br>
+<br>
+<br>
+<br>
+{%if user.is_active%}
+<div class="parent-div">
+
+  <div class="card">
+    <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+      <b style="float: left;">SELECT ACTION IN BRANCH 2</b>
+     </div>
+
+
+   <li class="list-group-item">
+    <a href="{%url '2transaction_create'%}" class="btn btn-outline-dark  btn-block mybuttons ">
+
+      <b>Click here to sell</b></a>
+    </li>
+    <li class="list-group-item">
+        <a href="{%url '2purchase_create'%}" class="btn btn-outline-dark btn-block mybuttons ">
+          <b>Click here to make a purchase</b></a>
+      </li>
+
+      <li class="list-group-item">
+        <a href="{%url '2expense_create'%}" class="btn btn-outline-dark btn-block mybuttons ">
+          <b>Click here to add an expense</b></a>
+      </li>
+
+      <li class="list-group-item">
+        <a href="{%url '2product_create'%}" class="btn btn-outline-primary  btn-block mybuttons ">
+          <b>Click here to add your selling products</b></a>
+      </li>
+
+     
+
+
+
+  </div>
+
+</div>
+
+<br>
+
+{%for transaction in transactions|slice:":1"%}
+
+<div class="parent-div">
+
+  <div class="card">
+      <div class="card-header" style="background-color: #0e4D92; color: #F5F5DC;">
+        <b style="float: left;">ACCOUNTS BRANCH2</b>
+        <b style="float: RIGHT;">TOTAL AMOUNT</b>
+
+
+      </div>
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Sales </b>
+    <a href="{%url '2transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_sales_amount}}</b></a></b></li>
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Purchases </b>
+    <a href="{%url '2transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_purchases}}</b></a></b></li>
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Expenses </b>
+    <a href="{%url '2transaction_delete' transaction.id%}">
+      <b style="float: right; color:grey;">{{transaction.total_expense}}</b></a></b></li>
+
+    <li class="list-group-item"> <b style="float: left; color: #00539cff;">Cash in hand </b>
+      <a href="{%url '2transaction_delete' transaction.id%}">
+        <b style="float: right; color:grey;">{{transaction.total_cash_in_hand}}</b></a></b></li>
+
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Mpesa balance </b>
+          <a href="{%url '2transaction_delete' transaction.id%}">
+            <b style="float: right; color:grey;">{{transaction.mpesa_balance}}</b></a></b></li>
+
+        <li class="list-group-item"> <b style="float: left; color: #00539cff;">Stock used </b>
+              <a href="{%url '2transaction_delete' transaction.id%}">
+                <b style="float: right; color:grey;">{{transaction.cost_of_sales}}</b></a></b></li>
+    
+
+  
+
+     <li class="list-group-item">
+      <a href="{%url '2accounts'%}" class="btn btn-outline-primary btn-block mybuttons ">
+
+        <b>Click to view all  transactions</b></a>
+      </li>
+      <li class="list-group-item">
+          <a href="{%url '2dailyreport'%}" class="btn btn-outline-primary btn-block mybuttons ">
+            <b>Click to view daily transaction reports</b></a>
+        </li>
+
+
+
+        <li class="list-group-item">
+          <a href="{%url '2revenue_home'%}" class="btn btn-outline-primary  btn-block mybuttons ">
+            <b>Click  to view income statement</b></a>
+        </li>
+
+        <li class="list-group-item">
+          <a href="{%url 'branches'%}" class="btn btn-outline-primary  btn-block mybuttons ">
+            <b>Click  to select branch</b></a>
+        </li>
+
+        {%if user.is_admin%}
+        <li class="list-group-item">
+          <a href="" class="btn btn-outline-primary  btn-block mybuttons ">
+            <b>Admin</b></a>
+        </li>
+       {%endif%}
+
+
+
+    </div>
+</div>
+{%endfor%}
+
+ {%else%}
+
+     <h1>You are not unable to access the application because:</h1><br>
+     <h4>You have not renewed your  subscription or you gave incorrect information during registration</h4> <br>
+
+
+
+    <h4>Kindly pay or register with correct information,whichever one applies to you.</h4><br>
+       <h4>To edit your profile go to the menu and Edit your profile with correct information,wait for 24 hours for changes to take effect .</h4>
+{%endif%}
+
+<br>
+
+{%endblock%}
+
+
+
+
+
+
+
+
