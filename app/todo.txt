@@ -1,2 +1,3 @@
 delete views
 absolute urls
+update views.

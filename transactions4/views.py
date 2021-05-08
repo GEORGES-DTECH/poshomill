@@ -331,11 +331,12 @@ class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         return super().form_valid(form)
     
     def test_func(self):
-        product=self.get_object()
-        if self.request.user == product.employee:
+        transaction=self.get_object()
+        if self.request.user == transaction.employee:
             return True
         else:
-            return False
+            return False    
+       
  
     
 class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -497,7 +498,7 @@ class TransactionUpdateView(LoginRequiredMixin,  UpdateView):
 
 # ==============================DELETE VIEWS=============================
 
-class ProductDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView,):
+class ProductDelete(LoginRequiredMixin, DeleteView,):
     model = Product4
     template_name = 'transactions4/productdelete.html'
     context_object_name = 'product'

@@ -295,12 +295,12 @@ def new_transaction(request):
 
 # ==============================UPDATE VIEWS==============================================
 
-class UpdateStock(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class UpdateStock(LoginRequiredMixin,UpdateView):
     model=Transaction5
     template_name = 'transactions5/stockupdate.html'
     fields=[
         
-  'products_purchased',
+   'products_purchased',
    'quantity_used',
 ]
     
@@ -309,14 +309,14 @@ class UpdateStock(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         return super().form_valid(form)
     
     def test_func(self):
-        product=self.get_object()
-        if self.request.user == product.employee:
+        transaction=self.get_object()
+        if self.request.user == transaction.employee:
             return True
         else:
-            return False
+            return False    
  
     
-class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class UpdateProduct(LoginRequiredMixin,UpdateView):
     model=Product5
     template_name = 'transactions5/productcreate.html'
     fields=[
@@ -331,14 +331,14 @@ class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         return super().form_valid(form)
     
     def test_func(self):
-        product=self.get_object()
-        if self.request.user == product.employee:
+        transaction=self.get_object()
+        if self.request.user == transaction.employee:
             return True
         else:
-            return False
- 
+            return False    
+       
     
-class ReportUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ReportUpdateView(LoginRequiredMixin,  UpdateView):
     model = Transactionreport5
     template_name = 'transactions5/create.html'
     fields = [
@@ -412,7 +412,7 @@ class TransactionExpenseUpdateView(LoginRequiredMixin,  UpdateView):
         
 
 
-class TransactionCreditorView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class TransactionCreditorView(LoginRequiredMixin,UpdateView):
     model = Transaction5
    
     template_name = 'transactions5/creditorform.html'
@@ -497,7 +497,7 @@ class TransactionUpdateView(LoginRequiredMixin,  UpdateView):
 
 # ==============================DELETE VIEWS=============================
 
-class ProductDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView,):
+class ProductDelete(LoginRequiredMixin,  DeleteView,):
     model = Product5
     template_name = 'transactions5/productdelete.html'
     context_object_name = 'product'
@@ -512,7 +512,7 @@ class ProductDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView,):
             return False    
     
 
-class TransactionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView,):
+class TransactionDeleteView(LoginRequiredMixin,  DeleteView,):
     model = Transaction5
     template_name = 'transactions5/transaction_confirm_delete.html'
     context_object_name = 'transaction'
@@ -523,7 +523,7 @@ class TransactionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView,
         return True
          
 
-class ReportDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView,):
+class ReportDeleteView(LoginRequiredMixin,DeleteView,):
     model = Transactionreport5
     template_name = 'transactions5/report_delete.html'
     context_object_name = 'report'

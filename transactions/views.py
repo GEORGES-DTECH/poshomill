@@ -308,7 +308,7 @@ def new_transaction(request):
 
 # ==============================UPDATE VIEWS==============================================
 
-class UpdateStock(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class UpdateStock(LoginRequiredMixin,UpdateView):
     model=Transaction
     template_name = 'transactions/stockupdate.html'
     fields=[
@@ -322,14 +322,15 @@ class UpdateStock(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         return super().form_valid(form)
     
     def test_func(self):
-        product=self.get_object()
-        if self.request.user == product.employee:
+        transaction=self.get_object()
+        if self.request.user == transaction.employee:
             return True
         else:
-            return False
+            return False    
+       
  
     
-class UpdateProduct(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
+class UpdateProduct(LoginRequiredMixin,UpdateView):
     model=Product
     template_name = 'transactions/productcreate.html'
     fields=[
